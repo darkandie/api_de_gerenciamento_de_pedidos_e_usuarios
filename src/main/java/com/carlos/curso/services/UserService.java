@@ -2,6 +2,7 @@ package com.carlos.curso.services;
 
 import com.carlos.curso.entities.User;
 import com.carlos.curso.repositories.UserRepository;
+import com.carlos.curso.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById (Long id) {
          Optional<User> obj = repository.findById(id);
-         return obj.get();
+         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public void delete(Long id) {
